@@ -107,8 +107,8 @@ const fetchData =  (stockName,saveName) => {
 
   const rule = new schedule.RecurrenceRule();
   rule.dayOfWeek = new schedule.Range(1, 5);
-  rule.hour = 9;
-  rule.minute = 15;
+  rule.hour = 12;
+  rule.minute = 05;
   let intervalId
   schedule.scheduleJob(rule, () => {
     
