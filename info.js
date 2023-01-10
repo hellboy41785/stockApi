@@ -2,8 +2,8 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const { myData, bankNifty } = require("./stocks");
 const schedule = require("node-schedule");
-const axios = require("axios");
-const axiosRetry = require("axios-retry");
+// const axios = require("axios");
+// const axiosRetry = require("axios-retry");
 
 const fetchData = (stockName, saveName) => {
   const stocks = {
@@ -15,22 +15,23 @@ const fetchData = (stockName, saveName) => {
   };
 
   const myStock = new saveName(stocks);
-  myStock.save();
+  // myStock.save();
 
-  const instance = axios.create({
-    timeout: 5000,
-  });
+  // const instance = axios.create({
+  //   timeout: 5000,
+  // });
 
-  axiosRetry(instance, { retries: 3, retryDelay: axiosRetry.exponentialDelay });
+  // axiosRetry(instance, { retries: 3, retryDelay: axiosRetry.exponentialDelay });
 
   const setData = async () => {
     try {
-      const response = await instance.get(
+      const response = await fetch(
         `https://www.nseindia.com/api/option-chain-indices?symbol=${stockName}`
       );
-      const data = response.data;
+      const data = await response.json();
 
       const filtered = data.filtered.data;
+      console.log(filtered)
 
       const callChange = filtered.reduce(
         (acc, current) => acc + current.CE?.changeinOpenInterest,
@@ -123,18 +124,19 @@ const fetchData = (stockName, saveName) => {
 
   const rule = new schedule.RecurrenceRule();
   rule.dayOfWeek = new schedule.Range(1, 5);
-  rule.hour = 20;
-  rule.minute = 14;
+  rule.hour = 21;
+  rule.minute = 13;
   let intervalId;
   schedule.scheduleJob(rule, () => {
     console.log("Started data Collection");
+    setData();
     intervalId = setInterval(() => {
       setData();
     }, 180000);
 
     const stopRule = new schedule.RecurrenceRule();
     stopRule.dayOfWeek = new schedule.Range(1, 5);
-    stopRule.hour = 20; // 4 PM
+    stopRule.hour = 21; // 4 PM
     stopRule.minute = 20;
     const j = schedule.scheduleJob(stopRule, () => {
       console.log("Stoping data Collection");
