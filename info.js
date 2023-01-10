@@ -106,8 +106,8 @@ const fetchData =  async(stockName,saveName) => {
 
   const rule = new schedule.RecurrenceRule();
   rule.dayOfWeek = new schedule.Range(1, 5);
-  rule.hour = 15;
-  rule.minute = 05;
+  rule.hour = 16;
+  rule.minute = 00;
   rule.tz = 'Asia/Kolkata'
   let intervalId
   schedule.scheduleJob(rule, () => {
@@ -120,7 +120,7 @@ const fetchData =  async(stockName,saveName) => {
     const stopRule = new schedule.RecurrenceRule();
     stopRule.dayOfWeek = new schedule.Range(1, 5);
     stopRule.hour = 16; // 4 PM
-    stopRule.minute = 00;
+    stopRule.minute = 10;
     stopRule.tz = 'Asia/Kolkata'
 
     const j = schedule.scheduleJob(stopRule, () => {

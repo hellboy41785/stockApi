@@ -9,7 +9,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-
+process.env.TZ = 'Asia/Calcutta'
 let date_time = new Date();
 
 let date = ("0" + date_time.getDate()).slice(-2);
