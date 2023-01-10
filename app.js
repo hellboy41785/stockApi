@@ -31,11 +31,12 @@ let seconds = date_time.getSeconds();
 const currentTime =   year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds
 
 const dbURI = process.env.MONGO_URI;
+mongoose.set('strictQuery', true)
 mongoose
   .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result) => console.log("connected to db ......."))
   .catch((err) => console.log(err));
-
+  
 app.get("/", (req, res) => {
   res.status(200).send({
     currentTime: `${currentTime}`,
