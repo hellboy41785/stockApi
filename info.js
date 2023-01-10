@@ -1,9 +1,6 @@
-const morgan = require("morgan");
-const mongoose = require("mongoose");
 const { myData, bankNifty } = require("./stocks");
 const schedule = require("node-schedule");
-// const axios = require("axios");
-// const axiosRetry = require("axios-retry");
+
 
 const fetchData = (stockName, saveName) => {
   const stocks = {
@@ -17,11 +14,6 @@ const fetchData = (stockName, saveName) => {
   const myStock = new saveName(stocks);
   // myStock.save();
 
-  // const instance = axios.create({
-  //   timeout: 5000,
-  // });
-
-  // axiosRetry(instance, { retries: 3, retryDelay: axiosRetry.exponentialDelay });
 
   const setData = async () => {
     try {
@@ -31,7 +23,6 @@ const fetchData = (stockName, saveName) => {
       const data = await response.json();
 
       const filtered = data.filtered.data;
-      console.log(filtered)
 
       const callChange = filtered.reduce(
         (acc, current) => acc + current.CE?.changeinOpenInterest,
@@ -125,7 +116,7 @@ const fetchData = (stockName, saveName) => {
   const rule = new schedule.RecurrenceRule();
   rule.dayOfWeek = new schedule.Range(1, 5);
   rule.hour = 21;
-  rule.minute = 25;
+  rule.minute = 40;
   let intervalId;
   schedule.scheduleJob(rule, () => {
     console.log("Started data Collection");
@@ -137,7 +128,7 @@ const fetchData = (stockName, saveName) => {
     const stopRule = new schedule.RecurrenceRule();
     stopRule.dayOfWeek = new schedule.Range(1, 5);
     stopRule.hour = 21; // 4 PM
-    stopRule.minute = 35;
+    stopRule.minute = 50;
     const j = schedule.scheduleJob(stopRule, () => {
       console.log("Stoping data Collection");
       clearInterval(intervalId);

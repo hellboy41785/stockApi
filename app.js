@@ -24,10 +24,6 @@ let minutes = date_time.getMinutes();
 
 let seconds = date_time.getSeconds();
 
-// console.log(
-//   year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds
-// );
-
 const currentTime =   year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds
 
 const dbURI = process.env.MONGO_URI;
