@@ -16,9 +16,11 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "lodash": "^4.17.21",
+    "moment-timezone": "^0.5.40",
     "mongoose": "^6.8.2",
     "morgan": "^1.10.0",
     "node-fetch": "^3.3.0",
-    "node-schedule": "^2.1.0"
+    "node-schedule": "^2.1.0",
+    "node-schedule-tz": "^1.2.1-4"
   }
 }

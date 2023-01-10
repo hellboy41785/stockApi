@@ -1,10 +1,9 @@
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const {myData,bankNifty }= require("./stocks");
+const schedule = require('node-schedule-tz');
 
-const schedule = require("node-schedule");
-
-const fetchData =  (stockName,saveName) => {
+const fetchData =  async(stockName,saveName) => {
   const stocks = {
     i: [],
     w: [],
@@ -15,7 +14,7 @@ const fetchData =  (stockName,saveName) => {
 
   const myStock = new saveName(stocks);
   myStock.save()
-
+  
   const setData = async () => {
     const response = await fetch(
       `https://www.nseindia.com/api/option-chain-indices?symbol=${stockName}`
@@ -107,20 +106,22 @@ const fetchData =  (stockName,saveName) => {
 
   const rule = new schedule.RecurrenceRule();
   rule.dayOfWeek = new schedule.Range(1, 5);
-  rule.hour = 13;
+  rule.hour = 14;
   rule.minute = 10;
+  rule.tz = 'Asia/Kolkata'
   let intervalId
   schedule.scheduleJob(rule, () => {
-    
+    console.log("Started data Collection")
     intervalId = setInterval(() => {
-      console.log("Started data Collection")
+      
       setData();
-    }, 30000);
+    }, 180000);
 
     const stopRule = new schedule.RecurrenceRule();
     stopRule.dayOfWeek = new schedule.Range(1, 5);
     stopRule.hour = 16; // 4 PM
     stopRule.minute = 00;
+    stopRule.tz = 'Asia/Kolkata'
 
     const j = schedule.scheduleJob(stopRule, () => {
       console.log("Stoping data Collection")
