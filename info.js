@@ -132,4 +132,6 @@ const fetchData =  (stockName,saveName) => {
 const nf =  fetchData( "NIFTY",myData);
 const bn = fetchData( "BANKNIFTY",bankNifty);
 
+module.exports = {nf,bn}
+
 
