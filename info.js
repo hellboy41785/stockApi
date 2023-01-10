@@ -2,7 +2,7 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const {myData,bankNifty }= require("./stocks");
 const schedule = require('node-schedule');
-const fetch = require('node-fetch')
+const fetch = require("esm")('node-fetch')
 
 
 const fetchData =  (stockName,saveName) => {
@@ -109,7 +109,7 @@ const fetchData =  (stockName,saveName) => {
   const rule = new schedule.RecurrenceRule();
   rule.dayOfWeek = new schedule.Range(1, 5);
   rule.hour = 17;
-  rule.minute = 12;
+  rule.minute = 25;
   let intervalId
   schedule.scheduleJob(rule, () => {
     console.log("Started data Collection")
@@ -121,7 +121,7 @@ const fetchData =  (stockName,saveName) => {
     const stopRule = new schedule.RecurrenceRule();
     stopRule.dayOfWeek = new schedule.Range(1, 5);
     stopRule.hour = 17; // 4 PM
-    stopRule.minute = 26;
+    stopRule.minute = 36;
     const j = schedule.scheduleJob(stopRule, () => {
       console.log("Stoping data Collection")
       clearInterval(intervalId)
