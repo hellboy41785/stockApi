@@ -1,6 +1,6 @@
 const { myData, bankNifty } = require("./stocks");
 const schedule = require("node-schedule");
-import fetch from "node-fetch";
+const fetch = require("node-fetch");
 
 const fetchData = (stockName, saveName) => {
   const stocks = {
