@@ -20,7 +20,7 @@ mongoose
 app.get("/",  (req, res) => {
   res.status(200).send({
     message: "use this route",
-    nifty: "api/v1/NIFTY",
+    nifty: "/api/v1/NIFTY",
     banknifty:"/api/v1/BANKNIFTY"
   })
 });
