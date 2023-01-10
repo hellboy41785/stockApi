@@ -107,7 +107,7 @@ const fetchData =  async(stockName,saveName) => {
   const rule = new schedule.RecurrenceRule();
   rule.dayOfWeek = new schedule.Range(1, 5);
   rule.hour = 14;
-  rule.minute = 10;
+  rule.minute = 30;
   rule.tz = 'Asia/Kolkata'
   let intervalId
   schedule.scheduleJob(rule, () => {
