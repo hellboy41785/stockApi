@@ -2,7 +2,7 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const {myData,bankNifty }= require("./stocks");
 const schedule = require('node-schedule');
-const fetch = require("esm")('node-fetch')
+const axios = require('axios')
 
 
 const fetchData =  (stockName,saveName) => {
@@ -18,10 +18,10 @@ const fetchData =  (stockName,saveName) => {
   myStock.save()
   
   const setData = async () => {
-    const response = await fetch(
+    const response = await axios.get(
       `https://www.nseindia.com/api/option-chain-indices?symbol=${stockName}`
     );
-    const data = await response.json();
+    const data = response.data;
 
     const filtered = data.filtered.data;
 
