@@ -1,6 +1,6 @@
 const { myData, bankNifty } = require("./stocks");
 const schedule = require("node-schedule");
-
+import fetch from "node-fetch";
 
 const fetchData = (stockName, saveName) => {
   const stocks = {
@@ -115,8 +115,8 @@ const fetchData = (stockName, saveName) => {
 
   const rule = new schedule.RecurrenceRule();
   rule.dayOfWeek = new schedule.Range(1, 5);
-  rule.hour = 21;
-  rule.minute = 55;
+  rule.hour = 22;
+  rule.minute = 00;
   let intervalId;
   schedule.scheduleJob(rule, () => {
     console.log("Started data Collection");
