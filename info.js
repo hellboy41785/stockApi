@@ -1,7 +1,7 @@
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const {myData,bankNifty }= require("./stocks");
-const schedule = require('node-schedule-tz');
+const schedule = require('node-schedule');
 
 const fetchData =  async(stockName,saveName) => {
   const stocks = {
@@ -107,8 +107,7 @@ const fetchData =  async(stockName,saveName) => {
   const rule = new schedule.RecurrenceRule();
   rule.dayOfWeek = new schedule.Range(1, 5);
   rule.hour = 16;
-  rule.minute = 00;
-  rule.tz = 'Asia/Kolkata'
+  rule.minute = 30;
   let intervalId
   schedule.scheduleJob(rule, () => {
     console.log("Started data Collection")
@@ -120,9 +119,7 @@ const fetchData =  async(stockName,saveName) => {
     const stopRule = new schedule.RecurrenceRule();
     stopRule.dayOfWeek = new schedule.Range(1, 5);
     stopRule.hour = 16; // 4 PM
-    stopRule.minute = 10;
-    stopRule.tz = 'Asia/Kolkata'
-
+    stopRule.minute = 50;
     const j = schedule.scheduleJob(stopRule, () => {
       console.log("Stoping data Collection")
       clearInterval(intervalId)
