@@ -99,7 +99,7 @@ const fetchData = (stockName, saveName) => {
       stocks.w = [ ...stocks.w,weightAge];
       stocks.v = [ ...stocks.v,volWeightedPCR];
       stocks.wp = [ ...stocks.wp,weightedPCR];
-      stocks.t = [Math.floor(Date.now() / 1000), ...stocks.t];
+      stocks.t = [ ...stocks.t,Math.floor(Date.now() / 1000)];
 
       const updateData = await saveName.findOneAndUpdate(
         {},
