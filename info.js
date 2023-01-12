@@ -114,8 +114,8 @@ const fetchData = (stockName, saveName) => {
 
   const rule = new schedule.RecurrenceRule();
   rule.dayOfWeek = new schedule.Range(1, 5);
-  rule.hour = 13;
-  rule.minute = 52;
+  rule.hour = 9;
+  rule.minute = 15;
   let intervalId;
   schedule.scheduleJob(rule, () => {
     console.log("Started data Collection");
