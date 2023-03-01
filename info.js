@@ -11,7 +11,7 @@ const fetchData = (stockName, saveName) => {
   };
 
   const myStock = new saveName(stocks);
-  // myStock.save();
+  myStock.save();
 
   const setData = async () => {
     try {
