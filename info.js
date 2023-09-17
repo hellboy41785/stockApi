@@ -114,8 +114,8 @@ const fetchData = (stockName, saveName) => {
 
   const rule = new schedule.RecurrenceRule();
   rule.dayOfWeek =  [0, 1, 2, 3, 4];
-  rule.hour = 12;
-  rule.minute = 45;
+  rule.hour = 9;
+  rule.minute = 15;
   let intervalId;
   schedule.scheduleJob(rule, () => {
     console.log("Started data Collection");
@@ -127,7 +127,7 @@ const fetchData = (stockName, saveName) => {
     const stopRule = new schedule.RecurrenceRule();
     stopRule.dayOfWeek = new schedule.Range(1, 5);
     stopRule.hour = 16; // 4 PM
-    stopRule.minute = 0o0;
+    stopRule.minute = 0;
     const j = schedule.scheduleJob(stopRule, () => {
       console.log("Stoping data Collection");
       clearInterval(intervalId);
